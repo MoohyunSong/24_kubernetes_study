@@ -59,21 +59,3 @@ spec:
   type: NodePort
   selector:
     app.kubernetes.io/name: app-ebs
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  namespace: ebs-test
-  name: ingress-ebs
-spec:
-  ingressClassName: nginx
-  rules:
-    - http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: service-ebs
-              port:
-                number: 80
