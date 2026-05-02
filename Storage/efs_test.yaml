@@ -59,21 +59,3 @@ spec:
   type: NodePort
   selector:
     app.kubernetes.io/name: app-efs
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  namespace: efs-test
-  name: ingress-efs
-spec:
-  ingressClassName: nginx
-  rules:
-    - http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: service-efs
-              port:
-                number: 80
