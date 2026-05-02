@@ -52,21 +52,3 @@ spec:
   type: NodePort
   selector:
     app.kubernetes.io/name: app-emptydir
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  namespace: emptydir-test
-  name: ingress-emptydir
-spec:
-  ingressClassName: nginx
-  rules:
-    - http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: service-emptydir
-              port:
-                number: 80
