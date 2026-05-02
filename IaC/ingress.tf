@@ -86,6 +86,7 @@ module "aws-loadbalancer-controller-irsa-role" {
 }
 
 resource "helm_release" "aws-load-balancer-controller" {
+  count = 0
   namespace  = "kube-system"
   name       = "aws-load-balancer-controller"
   chart      = "aws-load-balancer-controller"

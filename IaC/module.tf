@@ -18,16 +18,16 @@ module "efs-csi-driver" {
   depends_on = [module.eks]
 }
 
-module "karpenter" {
-  source            = "./karpenter"
-  prefix            = var.prefix
-  oidc_provider_arn = module.eks.oidc_provider_arn
-  node_group_id     = split(":", module.eks_managed_node_group.node_group_id)[1]
-  cluster_name      = module.eks.cluster_name
-  cluster_endpoint  = module.eks.cluster_endpoint
+# module "karpenter" {
+#   source            = "./karpenter"
+#   prefix            = var.prefix
+#   oidc_provider_arn = module.eks.oidc_provider_arn
+#   node_group_id     = split(":", module.eks_managed_node_group.node_group_id)[1]
+#   cluster_name      = module.eks.cluster_name
+#   cluster_endpoint  = module.eks.cluster_endpoint
 
-  depends_on = [module.eks]
-}
+#   depends_on = [module.eks]
+# }
 
 module "prometheus" {
   count  = var.enable_prometheus ? 1 : 0
