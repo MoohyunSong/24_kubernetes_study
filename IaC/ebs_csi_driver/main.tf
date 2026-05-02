@@ -1,6 +1,6 @@
 module "ebs-csi-driver-role" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  role_name = "${var.prefix}-ebs-csi-driver-sa-role"
+  source    = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts"
+  name = "${var.prefix}-ebs-csi-driver-sa-role"
 
   attach_ebs_csi_policy = true
 
@@ -19,28 +19,24 @@ resource "helm_release" "ebs-csi-driver" {
   name       = "aws-ebs-csi-driver"
   version    = "2.37.0"
 
-  set {
+  set = [{
     name  = "controller.serviceAccount.create"
     value = "true"
-  }
-
-  set {
+  },
+  {
     name  = "controller.serviceAccount.name"
     value = "ebs-csi-controller-sa"
-  }
-
-  set {
+  },
+  {
     name  = "controller.replicas"
     value = 1
-  }
-
-  set {
+  },
+  {
     name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = module.ebs-csi-driver-role.iam_role_arn
-  }
-
-  set {
+    value = module.ebs-csi-driver-role.arn
+  },
+  {
     name  = "controller.nodeSelector.eks\\.amazonaws\\.com/nodegroup"
     value = var.node_group_id
-  }
+  }]
 }

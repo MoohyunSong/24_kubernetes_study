@@ -20,7 +20,7 @@ module "efs" {
   }
   security_group_description = "Example EFS security group"
   security_group_vpc_id      = module.vpc.vpc_id
-  security_group_rules = {
+  security_group_ingress_rules = {
     vpc = {
       # relying on the defaults provdied for EFS/NFS (2049/TCP + ingress)
       description = "NFS ingress from VPC private subnets"

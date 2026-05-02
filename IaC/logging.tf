@@ -1,6 +1,6 @@
 module "fluentbit-role" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  role_name = "${var.prefix}-fluentbit-sa-role"
+  source    = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts"
+  name = "${var.prefix}-fluentbit-sa-role"
 
   attach_cloudwatch_observability_policy = true
 
